@@ -5,14 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +34,11 @@ public class Login extends AppCompatActivity {
     private Button Login;
     private Button mTextViewRegister;
     private TextView mTextViewForgotPassword;
+    ProgressBar progressBar;
+    View view, view1;
+
+
+    FirebaseAuth fAuth;
     private int counter=4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +47,18 @@ public class Login extends AppCompatActivity {
         username=(EditText) findViewById(R.id.edittext_username);
         password=(EditText) findViewById(R.id.edittext_password);
         info=(TextView) findViewById(R.id.textview_info);
-        Login=(Button)findViewById(R.id.button_Login);
+       //Login=(Button)findViewById(R.id.button_Login);
         mTextViewForgotPassword=(TextView) findViewById(R.id.textview_forgot_password);
         info.setText("Number of attempts: 5");
-        mTextViewRegister = (Button) findViewById(R.id.button_signup);
-        mTextViewRegister.setOnClickListener(new View.OnClickListener() {
+        //mTextViewRegister = (Button) findViewById(R.id.button_signup);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        fAuth=FirebaseAuth.getInstance();
+       view=(View)findViewById(R.id.include);
+       view1=(View)findViewById(R.id. signup);
+        view1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent registerIntent=new Intent(Login.this,Signup.class);
                 startActivity(registerIntent);
             }
@@ -53,12 +70,55 @@ public class Login extends AppCompatActivity {
                 startActivity(forgotpasswordintent);
             }
         });
-        Login.setOnClickListener(new View.OnClickListener() {
+
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressbtn progressBtn=new progressbtn(Login.this,view);
+                progressBtn.buttonActivated();
+                Handler handler=new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBtn.bottonFinished();
+
+                    }
+                },3000);
+                String userEmail=username.getText().toString();
+                String userPassword=password.getText().toString();
+                if(TextUtils.isEmpty(userEmail)){
+                    username.setError("Email is required.");
+                    return;
+                }
+                if(TextUtils.isEmpty(userPassword)){
+                    password.setError("Password is required");
+                    return;
+                }
+                //progressBar.setVisibility(View.VISIBLE);
+                    fAuth.signInWithEmailAndPassword(userEmail,userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                            Toast.makeText(Login.this,"Login Success!!", Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent(getApplicationContext(),Homescree.class));
+                            }
+                            else {
+                                info.setText("Remaining Attempts:" + String.valueOf(counter));
+                                counter--;
+                                if (counter == -1) {
+
+                                    Login.setEnabled(false);
+                                    Toast.makeText(Login.this, "Login Failed!!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                    });
+
+                }
                /* loginUser();*/
-                validate(username.getText().toString(),password.getText().toString());
-            }
+               // validate(username.getText().toString(),password.getText().toString());
+
         });
 
       /*  Login.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +217,7 @@ public class Login extends AppCompatActivity {
     }
 */
 
-    private void validate(String user, String pwd) {
+    /*private void validate(String user, String pwd) {
         if ((user.equals("Admin")) && (pwd.equals("Admin") )) {
             Intent intent = new Intent(Login.this, Homescree.class);
             startActivity(intent);
@@ -171,6 +231,6 @@ public class Login extends AppCompatActivity {
             }
 
         }
-    }
+    }*/
 
 }
