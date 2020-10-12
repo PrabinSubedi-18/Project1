@@ -28,6 +28,8 @@ class AllUsersAdapterChat extends RecyclerView.Adapter<AllUsersAdapterChat.AllUs
         return allUsersAdapter;
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull AllUsersViewHolder holder, int position) {
         Users user=usersArrayList.get(position);

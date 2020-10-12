@@ -4,8 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -28,12 +37,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static com.example.firebasedatabsedemo.notification.CHANNEL1_ID;
+
 public class GroupChatActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ImageButton sendMessageButton;
     private EditText userMessageInput;
     private ScrollView mScrollView;
     private TextView displayTextMessage;
+    NotificationManagerCompat notificationManager;
     private FirebaseAuth mAuth;
     private DatabaseReference UserRef, groupNameRef, groupMessageKeyRef;
     private  String currentGroupName, currentUserID,currentUserName,currentDate, currentTime;
@@ -45,6 +57,7 @@ public class GroupChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_chat);
         currentGroupName=getIntent().getExtras().get("groupName").toString();
         Toast.makeText(GroupChatActivity.this,currentGroupName,Toast.LENGTH_SHORT).show();
+        notificationManager= NotificationManagerCompat.from(this);
         mAuth=FirebaseAuth.getInstance();
        currentUserID= mAuth.getCurrentUser().getUid();
         UserRef= FirebaseDatabase.getInstance().getReference().child("Strata");
@@ -64,9 +77,60 @@ public class GroupChatActivity extends AppCompatActivity {
                 SaveMessageInfoDatabase();
                 userMessageInput.setText("");
                 mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                String title="Hello";
+                NotificationCompat.Builder builder= new NotificationCompat.Builder(GroupChatActivity.this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("New Notification")
+                        .setContentText(title)
+                        .setAutoCancel(true);
+                Intent intent=new Intent(GroupChatActivity.this,Homescree.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("message",title);
+                PendingIntent pendingIntent=PendingIntent.getActivity(GroupChatActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentIntent(pendingIntent);
+                NotificationManager notificationManager=(NotificationManager)getSystemService(
+                        Context.NOTIFICATION_SERVICE
+                );
+
             }
+
         });
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.quickchat,menu);
+        return  true;
+    }
+    private void SendUserToLoginActivity(){
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if(item.getItemId()==R.id.mainBusy){
+            SaveMessageInfoDatabase();
+            userMessageInput.setText("I am Busy");
+            mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+        if (item.getItemId()==R.id.mainWill){
+            SaveMessageInfoDatabase();
+            userMessageInput.setText("I will call back");
+            mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+        if (item.getItemId()==R.id.mainHow){
+            SaveMessageInfoDatabase();
+            userMessageInput.setText("How are you?");
+            mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+        if (item.getItemId()==R.id.mainThankYou){
+            SaveMessageInfoDatabase();
+            userMessageInput.setText("Thank you");
+            mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        }
+        return true;
+    }
+
 
     @Override
     protected void onStart() {

@@ -66,20 +66,30 @@ private void SendUserToLoginActivity(){
              mAuth.signOut();
              SendUserToLoginActivity();
          }
-         if (item.getItemId()==R.id.mainSettings){
-
+         if (item.getItemId()==R.id.mainQuery){
+             Intent callIntent=new Intent(Homescree.this, query.class);
+             startActivity(callIntent);
          }
+        if (item.getItemId()==R.id.mainAdminPanel) {
+            Intent callIntent = new Intent(Homescree.this, PhoneAuthentication.class);
+            startActivity(callIntent);
+        }
         if (item.getItemId()==R.id.mainCreateGroup){
-            RequestNewGroup();
+           // RequestNewGroup();
+            Toast.makeText(Homescree.this,"Contact Admin",Toast.LENGTH_SHORT).show();
         }
          if (item.getItemId()==R.id.mainCallPeople){
              Intent callIntent=new Intent(Homescree.this, Call1.class);
              startActivity(callIntent);
          }
+         if (item.getItemId()==R.id.settings){
+            Intent callIntent=new Intent(Homescree.this, Preferance.class);
+            startActivity(callIntent);
+        }
          return true;
     }
 
-    private void RequestNewGroup() {
+  /*  private void RequestNewGroup() {
         AlertDialog.Builder builder=new AlertDialog.Builder(Homescree.this,R.style.AlertDialog);
         builder.setTitle("Enter Group Name");
         final EditText groupNameField=new EditText(Homescree.this);
@@ -116,6 +126,6 @@ private void SendUserToLoginActivity(){
                 }
             }
         });
-    }
+    }*/
 }
 

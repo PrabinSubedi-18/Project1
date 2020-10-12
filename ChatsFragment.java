@@ -1,5 +1,6 @@
 package com.example.firebasedatabsedemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -70,6 +72,7 @@ public class ChatsFragment extends Fragment {
 
                 return ContactsView;
             }
+
     public void fetchAllUsers() {
         reference.addValueEventListener(new ValueEventListener() {
             @Override

@@ -2,8 +2,15 @@ package com.example.firebasedatabsedemo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -28,6 +35,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
+    private static final String CHANNEL_ID = "Notification";
+    private static final int NOTIFICATION_ID = 101;
     private EditText username;
     private EditText password;
     private TextView info;
@@ -55,6 +64,11 @@ public class Login extends AppCompatActivity {
         fAuth=FirebaseAuth.getInstance();
        view=(View)findViewById(R.id.include);
        view1=(View)findViewById(R.id. signup);
+       if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+           NotificationChannel channel=new NotificationChannel("My Notification","My Notification",NotificationManager.IMPORTANCE_DEFAULT);
+           NotificationManager manager=getSystemService(NotificationManager.class);
+           manager.createNotificationChannel(channel);
+       }
         view1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +88,17 @@ public class Login extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                NotificationCompat.Builder builder= new NotificationCompat.Builder(Login.this,"My Notification");
+                        builder.setSmallIcon(R.drawable.logo);
+                        builder.setContentTitle("Strata");
+                        builder.setContentText("New Login attempt");
+                        builder.setAutoCancel(true);
+                NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(Login.this);
+                notificationManagerCompat.notify(1,builder.build());
+
+
+
                 progressbtn progressBtn=new progressbtn(Login.this,view);
                 progressBtn.buttonActivated();
                 Handler handler=new Handler();
@@ -114,6 +139,7 @@ public class Login extends AppCompatActivity {
                         }
 
                     });
+
 
                 }
                /* loginUser();*/
