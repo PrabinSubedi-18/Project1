@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item
+    android:title="Call"
+    android:id="@+id/mainCallPeople"
+    app:showAsAction="never">
+
+</item>
+    <item
+        android:title="Create Group"
+        android:id="@+id/mainCreateGroup"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:title="Queries and Complain"
+        android:id="@+id/mainQuery"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:title="Admin Panel"
+        android:id="@+id/mainAdminPanel"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        app:showAsAction="never">
+
+    </item>
+    <item
+        android:title="Sign Out"
+        android:id="@+id/mainSignOut"
+        app:showAsAction="never">
+
+    </item>
+</menu>

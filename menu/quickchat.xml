@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:title="I am busy"
+            android:id="@+id/mainBusy"
+            app:showAsAction="never">
+
+        </item>
+        <item
+            android:title="I will call back"
+            android:id="@+id/mainWill"
+            app:showAsAction="never">
+
+        </item>
+        <item
+            android:title="How are you?"
+            android:id="@+id/mainHow"
+            app:showAsAction="never">
+
+        </item>
+        <item
+            android:title="Thank you"
+            android:id="@+id/mainThankYou"
+            app:showAsAction="never">
+
+        </item>
+
+</menu>

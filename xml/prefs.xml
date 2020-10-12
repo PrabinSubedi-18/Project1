@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="Alerts">
+        <CheckBoxPreference
+            android:title="Notification"
+            android:key="NOTIFICATION"
+            android:defaultValue="false"
+            android:summaryOff="Notification is Off"
+            android:summaryOn="Notification is On"
+            app:title="Notification"/>
+        <CheckBoxPreference
+            android:title="Sound"
+            android:key="SOUND"
+            android:defaultValue="false"
+            android:summaryOff="In-app Sound is Off"
+            android:summaryOn="In-app Sound is On"
+            app:title="In-app Sound"/>
+        <CheckBoxPreference
+            android:title="Vibration"
+            android:key="VIBRATION"
+            android:defaultValue="false"
+            android:summaryOff="Vibration is Off"
+            android:summaryOn="Vibration is On"
+            app:title="Vibration"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="General">
+        <Preference
+            android:key="USER"
+            android:title="Active status"
+            android:summary="On"/>
+    <!--    <SwitchPreferenceCompat
+            android:key="switch_preference"
+            android:title="Dark Theme"
+            android:summary="Battery Saver"/>-->
+        <CheckBoxPreference
+            android:title="Night mode"
+            android:key="NIGHT"
+            android:defaultValue="false"
+            android:summaryOff="Night mode is deactivated"
+            android:summaryOn="Night mode is activated"
+            app:title="Night Mode"/>
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Display">
+        <ListPreference
+            android:title="Orientation"
+            android:key="ORIENTATION"
+            android:entries="@array/items_name"
+            android:entryValues="@array/items_value"
+            android:defaultValue="false"/>
+        <SeekBarPreference
+            android:key="seekbar_preference"
+            android:title="Brightness Level"
+            app:showSeekBarValue="true"
+            android:defaultValue="50"/>
+        <Preference
+            android:key="intent_preference"
+            android:title="Wallpaper"
+            android:summary="Change Wallpaper"/>
+    </PreferenceCategory>
+ <!--  <PreferenceCategory
+        android:key="expandable"
+        android:title="Display"
+        app:initialExpandedChildrenCount="1">
+        <SeekBarPreference
+            android:key="seekbar_preference"
+            android:title="Brightness Level"
+            android:summary="Value Percentage"/>
+        <Preference
+            android:key="intent_preference"
+            android:title="Wallpaper"
+            android:summary="Change Wallpaper"/>
+        <DropDownPreference
+            android:key="drop_down_preference"
+            android:title="Device Theme"
+            android:summary="Automatic"/>
+
+
+    </PreferenceCategory>-->
+</PreferenceScreen>
