@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.firebasedatabsedemo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission-sdk-23 android:name="android.permission.CALL_PHONE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".AdminMainPage" />
+        <activity android:name=".PhoneAuthentication" />
+        <activity android:name=".leaseagreementshowprofile" />
+        <activity android:name=".leaseagreementprofile" />
+        <activity android:name=".issueoption" />
+        <activity android:name=".issuecomplainreport" />
+        <activity android:name=".issuecomplainbox" />
+        <activity android:name=".cleanerreportoption" />
+        <activity android:name=".cleanerstatus" />
+        <activity android:name=".issuecomplain" />
+        <activity android:name=".requestcalendar" />
+        <activity android:name=".cleaningcalender" />
+        <activity android:name=".issue" />
+        <activity android:name=".lease" />
+        <activity android:name=".cleaner" />
+        <activity android:name=".query" />
+        <activity android:name=".Call1" />
+        <activity android:name=".GroupChatActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".facebook" />
+        <activity android:name=".google" />
+        <activity android:name=".Homescree" />
+        <activity android:name=".forgotpass" />
+        <activity android:name=".Signup" />
+        <activity android:name=".MainActivity" />
+
+        <activity android:name=".veryFirst">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Preferance"/>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
